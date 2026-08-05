@@ -1,0 +1,85 @@
+generated: '2026-08-05'
+method: searched
+source: npm registry search, PyPI JSON API, GitHub search (2026-08-05)
+note: >-
+  NO FIRST-PARTY TOUTIAO SDK EXISTS. Every package below is third-party. They are recorded
+  because they are the real integration surface developers use, but none is published by
+  ByteDance or Toutiao, so `official` is false throughout and NO `SDKs` pointer is wired
+  into apis.yml — the sdk_count check must not fire on community packages.
+official_sdks: []
+official_sdk_count: 0
+registries_searched:
+- {registry: npm, query: toutiao, first_party_hits: 0}
+- {registry: pypi, packages_checked: [toutiao, toutiao-sdk, bytedance], first_party_hits: 0}
+- {registry: github, query: toutiao-sdk, first_party_hits: 0}
+packages:
+- language: javascript
+  registry: npm
+  name: '@tarojs/taro-tt'
+  url: https://www.npmjs.com/package/@tarojs/taro-tt
+  install: npm install @tarojs/taro-tt
+  official: false
+  publisher: Taro (JD.com open source)
+  category: mini-program-framework-adapter
+  description: Taro framework adapter that compiles to the Toutiao mini-program runtime.
+- language: javascript
+  registry: npm
+  name: '@dcloudio/uni-mp-toutiao'
+  url: https://www.npmjs.com/package/@dcloudio/uni-mp-toutiao
+  install: npm install @dcloudio/uni-mp-toutiao
+  official: false
+  publisher: DCloud (uni-app)
+  category: mini-program-framework-adapter
+  description: uni-app platform adapter targeting the Toutiao mini-program runtime.
+- language: javascript
+  registry: npm
+  name: '@remax/toutiao'
+  url: https://www.npmjs.com/package/@remax/toutiao
+  install: npm install @remax/toutiao
+  official: false
+  publisher: Remax
+  category: mini-program-framework-adapter
+  description: Remax React-based adapter for Toutiao mini programs.
+- language: javascript
+  registry: npm
+  name: '@rsmax/toutiao'
+  url: https://www.npmjs.com/package/@rsmax/toutiao
+  install: npm install @rsmax/toutiao
+  official: false
+  publisher: Rsmax
+  category: mini-program-framework-adapter
+  description: Rsmax adapter for Toutiao mini programs.
+- language: javascript
+  registry: npm
+  name: '@ray-core/toutiao'
+  url: https://www.npmjs.com/package/@ray-core/toutiao
+  install: npm install @ray-core/toutiao
+  official: false
+  publisher: Tuya (Ray)
+  category: mini-program-framework-adapter
+  description: Ray framework adapter for Toutiao mini programs.
+- language: python
+  registry: pypi
+  name: bytedance
+  url: https://pypi.org/project/bytedance/
+  install: pip install bytedance
+  official: false
+  publisher: pcloth (community)
+  category: mini-program-sdk
+  description: Community Python SDK for the ByteDance mini-app platform. Not published by ByteDance.
+excluded:
+- name: toutiao (PyPI)
+  url: https://pypi.org/project/toutiao/
+  reason: >-
+    Unrelated namesake — a CLI for toutiao.io, a developer news site, not ByteDance's 今日头条.
+- name: oceanengine/ad_open_sdk_go, oceanengine/ad_open_sdk_java
+  reason: >-
+    Genuinely first-party ByteDance SDKs, but for the OceanEngine (巨量引擎) advertising
+    platform, which is a separate provider. The Toutiao ads API migrated there (see
+    lifecycle/toutiao-lifecycle.yml); these belong on the OceanEngine profile, not this one.
+- name: rx-coder/toutiao-marketing-sdk
+  reason: Third-party PHP wrapper for the legacy Toutiao Marketing API, now migrated to OceanEngine.
+gap:
+  summary: >-
+    Toutiao ships no client library in any language for its open API. Developers integrating
+    the OAuth surface hand-roll HTTP calls against open.snssdk.com.

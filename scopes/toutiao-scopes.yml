@@ -1,0 +1,51 @@
+generated: '2026-08-05'
+method: searched
+source: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+docs: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+note: >-
+  Toutiao does not publish a public scopes reference page. ByteDance documents the naming
+  convention and where the list lives, but the enumerated list itself is rendered only
+  inside the authenticated open-platform console (管理中心 → 应用详情 → 接口权限). What follows is
+  exactly what the provider states publicly — the convention plus the individual permissions
+  named in the docs. It is deliberately NOT a guessed enumeration.
+schemes:
+- name: ToutiaoOAuth2
+  authorizationUrl: https://open.snssdk.com/oauth/authorize/
+  tokenUrl: https://open.snssdk.com/oauth/access_token/
+  flows:
+  - authorizationCode
+convention:
+  namespace: 'toutiao.*'
+  description: >-
+    Toutiao and Xigua applications are registered as Douyin Open Platform applications.
+    On the permissions page, scopes prefixed toutiao. apply to Toutiao and scopes prefixed
+    xigua. apply to Xigua Video; both are granted per-application after review.
+  sibling_namespace: 'xigua.*'
+  source: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+scopes:
+- scope: mobile_alert
+  description: >-
+    Grants the application the authorized user's phone number as an AES-encrypted
+    encrypt_mobile field on the user-info response. Named explicitly in the published
+    Toutiao/Xigua OAuth documentation.
+  flows:
+  - authorizationCode
+  sources:
+  - https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+permissions:
+- name: 视频发布及管理 (video publishing and management)
+  description: >-
+    The interface permission behind the Toutiao content-publishing solution. Documented as
+    enabled by default for every application that passes review, and located in the console
+    at 管理中心 → 应用详情 → 接口权限 → 视频发布及管理. Restricted to short-video format; articles and
+    micro-posts are explicitly out of scope.
+  console_only: true
+  sources:
+  - https://open.douyin.com/platform/resource/docs/ability/content-management/toutiao-publish-solution/
+coverage:
+  scopes_published: 1
+  namespaces_published: 2
+  full_list_public: false
+  blocker: >-
+    The enumerated scope list is console-gated behind an approved developer application;
+    it is not reachable without registering and passing the 1-3 business day review.

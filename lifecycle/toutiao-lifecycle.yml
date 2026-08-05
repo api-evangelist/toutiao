@@ -1,0 +1,82 @@
+generated: '2026-08-05'
+method: searched
+source: live redirect-chain probes + published Toutiao/Xigua OAuth documentation
+note: >-
+  Toutiao publishes no versioning policy, no deprecation policy, no SLA and no status page.
+  What it does have is two observable platform migrations, captured below from live 301/302
+  redirect chains — that is real lifecycle evidence, but it is not a policy, and no
+  Deprecation or StatusPage pointer is wired on the strength of it.
+versioning:
+  scheme: none-observed
+  current: null
+  docs: null
+  detail: >-
+    Endpoint paths on open.snssdk.com carry no version segment and no version header or
+    date-pinning convention is documented.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  policy_published: false
+  detail: >-
+    No RFC 8594 Sunset/Deprecation header support is documented and no deprecation policy
+    page exists. Endpoint retirement has instead been communicated by silently redirecting
+    the old host, as recorded in migrations[] below.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  probed:
+  - url: https://status.toutiao.com/
+    result: DNS resolution failure (no host)
+  - url: https://status.bytedance.com/
+    result: DNS resolution failure (no host)
+token_lifecycle:
+  access_token: 15 days
+  refresh_token: 30 days
+  renewal_endpoint: https://open.snssdk.com/oauth/renew_refresh_token/
+  source: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+migrations:
+- what: Toutiao advertising / Marketing API
+  from: https://ad.toutiao.com/openapi/doc/index.html
+  to: https://open.oceanengine.com/docs/
+  mechanism: HTTP 301 → 301 → 302 chain, no deprecation notice served
+  chain:
+  - status: 301
+    location: https://ad.oceanengine.com/openapi/doc/index.html
+  - status: 301
+    location: https://open.oceanengine.com/doc/index.html
+  - status: 302
+    location: https://open.oceanengine.com/docs/
+  - status: 200
+  detail: >-
+    The Toutiao ads open platform has been folded into OceanEngine (巨量引擎), ByteDance's
+    unified advertising platform. Advertising APIs are no longer a Toutiao-branded surface;
+    they are catalogued under OceanEngine.
+  observed: '2026-08-05'
+- what: Toutiao developer platform (mini programs)
+  from: https://developer.toutiao.com/
+  to: https://microapp.bytedance.com/
+  mechanism: HTTP 301, no deprecation notice served
+  chain:
+  - status: 301
+    location: https://microapp.bytedance.com/
+  - status: 200
+  detail: >-
+    The Toutiao-branded developer host now redirects to the ByteDance mini-app / mini-game
+    developer platform, which serves Toutiao, Douyin and Xigua mini programs from one portal.
+  observed: '2026-08-05'
+active_surfaces:
+- name: Toutiao account OAuth + user profile
+  host: https://open.snssdk.com
+  docs: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+  status: active
+- name: Toutiao content publishing (short video)
+  docs: https://open.douyin.com/platform/resource/docs/ability/content-management/toutiao-publish-solution/
+  status: active
+  restriction: short-video format only; articles and micro-posts explicitly not supported
+- name: Toutiao Hao creator platform
+  host: https://mp.toutiao.com
+  status: active
+  access: login-gated
+deprecated_operations: []

@@ -1,23 +1,124 @@
 aid: toutiao
 name: Toutiao
-description: 'Toutiao is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Toutiao (今日头条) is ByteDance''s AI-driven content recommendation platform,
+  launched in 2012, aggregating news, articles, short video and micro-posts into a
+  personalized feed for hundreds of millions of readers in China. Creators publish
+  through 头条号 (Toutiao Hao) accounts on mp.toutiao.com, and third-party developers
+  integrate through the ByteDance open-platform stack: Toutiao account OAuth 2.0 and
+  user-profile APIs served from open.snssdk.com and documented on the Douyin Open
+  Platform under the toutiao-or-xigua section, a content-sync and video publishing
+  surface available to approved applications, mini-programs via the ByteDance mini-app
+  developer platform, and advertising APIs that have since migrated from ad.toutiao.com
+  to OceanEngine (巨量引擎). Toutiao publishes no OpenAPI, AsyncAPI, llms.txt or A2A
+  agent card; its developer program is registration- and approval-gated and its documentation
+  is client-side rendered in Chinese.'
+image: https://sf3-cdn-tos.douyinstatic.com/obj/eden-cn/uhbfnupkbps/toutiao_favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/toutiao/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
 - Company
-apis: []
+- News
+- Content
+- Media
+- Social
+- Recommendation
+- Publishing
+- ByteDance
+- China
+- OAuth
+apis:
+- name: Toutiao Open API (OAuth + User Profile)
+  description: 'Toutiao account OAuth 2.0 and user-profile API, served from the open.snssdk.com
+    host and documented on the Douyin Open Platform under the toutiao-or-xigua permission
+    section. Supports the authorization-code flow (authorize, access_token, refresh_token,
+    renew_refresh_token) and returns the authorized user''s open_id, nickname and avatar;
+    the mobile_alert permission additionally returns an AES-encrypted phone number.
+    Scopes are namespaced toutiao.* and are granted per-application in the open-platform
+    console. Access tokens are valid 15 days, refresh tokens 30 days. No OpenAPI is
+    published for this surface.'
+  humanURL: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+  baseURL: https://open.snssdk.com
+  tags:
+  - OAuth
+  - Authentication
+  - Identity
+  properties:
+  - type: Documentation
+    url: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+  - type: Authentication
+    url: authentication/toutiao-authentication.yml
+  - type: OAuthScopes
+    url: scopes/toutiao-scopes.yml
+  - type: ErrorCatalog
+    url: errors/toutiao-problem-types.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/toutiao-domain-security.yml
 - type: Website
+  url: https://www.toutiao.com/
+- type: DeveloperPortal
+  url: https://open.toutiao.com/
+- type: Documentation
+  url: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+- type: APIReference
+  url: https://open.douyin.com/platform/resource/docs/ability/content-management/toutiao-publish-solution/
+- type: SignUp
+  url: https://mp.toutiao.com/auth/page/login
+- type: TermsOfService
+  url: https://www.toutiao.com/user_agreement/
+- type: PrivacyPolicy
+  url: https://www.toutiao.com/privacy_protection/
+- type: Authentication
+  url: authentication/toutiao-authentication.yml
+- type: OAuthScopes
+  url: scopes/toutiao-scopes.yml
+- type: ErrorCatalog
+  url: errors/toutiao-problem-types.yml
+- type: Conventions
+  url: conventions/toutiao-conventions.yml
+- type: Lifecycle
+  url: lifecycle/toutiao-lifecycle.yml
+- type: Conformance
+  url: conformance/toutiao-conformance.yml
+- type: Packages
+  url: packages/toutiao-packages.yml
+- type: LLMsTxt
+  url: llms/toutiao-llms.txt
+- type: SecondaryMarket
   url: https://forgeglobal.com/toutiao_stock/
+x-enrichment:
+  date: '2026-08-05'
+  status: minimal
+  artifacts_added: 10
+  pass: local-v1
+x-coverage:
+  state: unreadable
+  reason: no-machine-readable-spec
+  detail: >-
+    ByteDance documents the Toutiao OAuth and user-profile API publicly on the Douyin Open
+    Platform and the endpoints answer live on open.snssdk.com, but no OpenAPI, AsyncAPI,
+    GraphQL SDL, Postman collection or JSON Schema is published on any Toutiao, snssdk or
+    ByteDance host — and open.douyin.com returns a 200 HTML single-page-app shell for
+    /openapi.json and every /.well-known/ path, byte-identical to a nonexistent control
+    path, so there is nothing for a machine to fetch.
+  evidence:
+  - url: https://open.snssdk.com/oauth/access_token/
+    status: 200
+  - url: https://open.snssdk.com/openapi.json
+    status: 404
+  - url: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+    status: 200
+  - url: https://open.douyin.com/openapi.json
+    status: 200
+  - url: https://www.toutiao.com/.well-known/agent-card.json
+    status: 404
+  checked: '2026-08-05'

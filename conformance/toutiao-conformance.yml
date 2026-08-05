@@ -1,0 +1,80 @@
+generated: '2026-08-05'
+method: derived
+source: >-
+  Derived from the published Toutiao/Xigua OAuth documentation and live probes of
+  https://open.snssdk.com. No OpenAPI exists for this provider, so nothing here is derived
+  from a spec.
+note: >-
+  Standards conformance for the Toutiao open API. `conforms: false` here means the standard
+  was checked and is genuinely not implemented, not that it was unreachable.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Documented authorization-code flow with authorize / access_token / refresh_token /
+    renew_refresh_token endpoints on open.snssdk.com; all four confirmed live by
+    differential probe on 2026-08-05.
+- id: oauth2-rfc8414-metadata
+  conforms: false
+  evidence: >-
+    https://open.snssdk.com/.well-known/oauth-authorization-server returned 404. The
+    authorization server publishes no discovery metadata.
+- id: openid-connect
+  conforms: false
+  evidence: >-
+    https://open.snssdk.com/.well-known/openid-configuration returned 404. Identity is
+    returned as a proprietary open_id on a custom userinfo response, not an OIDC ID token.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are returned as HTTP 200 with a proprietary {"message":"error","data":{"error_code":...}}
+    envelope and content-type application/json, not application/problem+json.
+- id: http-status-semantics
+  conforms: false
+  evidence: >-
+    Application-level failures are returned with HTTP 200 rather than a 4xx/5xx status;
+    see errors/toutiao-problem-types.yml.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: >-
+    No Sunset or Deprecation header support is documented; host retirement was performed by
+    bare 301 redirect (see lifecycle/toutiao-lifecycle.yml).
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    https://www.toutiao.com/.well-known/security.txt and https://open.snssdk.com/.well-known/security.txt
+    both returned 404.
+- id: rfc8615-well-known
+  conforms: false
+  evidence: >-
+    No /.well-known/ document of any kind is served on toutiao.com or open.snssdk.com; all
+    probed paths returned 404. See well-known/toutiao-well-known.yml.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger document was found on any Toutiao, snssdk, Douyin Open Platform or
+    ByteDance mini-app host. See well-known/toutiao-well-known.yml for the probe record.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface is published for the Toutiao open API.
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json probed on every host; all
+    returned 404 or an SPA soft-404 (HTML body identical to a control path), which is not a
+    card.
+- id: tls-1.3
+  conforms: true
+  evidence: open.snssdk.com and open.douyin.com negotiate TLSv1.3; see security/toutiao-domain-security.yml.
+- id: hsts
+  conforms: partial
+  evidence: >-
+    www.toutiao.com and open.douyin.com send Strict-Transport-Security with max-age 31536000;
+    the API host open.snssdk.com sends none.
+compliance_program:
+  published: false
+  note: >-
+    No Toutiao-branded trust center, certification listing or compliance page was found.
+    ByteDance operates a corporate security response center at src.bytedance.com, but it is
+    a client-side-rendered SPA whose product scope could not be read without JavaScript, so
+    no claim is made that it covers Toutiao and no Compliance or Security pointer is wired.

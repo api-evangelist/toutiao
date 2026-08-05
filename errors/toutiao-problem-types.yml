@@ -1,0 +1,69 @@
+generated: '2026-08-05'
+method: probed
+source: live unauthenticated probes of https://open.snssdk.com (2026-08-05)
+format: custom
+note: >-
+  Toutiao does not use RFC 9457 problem+json. It returns HTTP 200 for application-level
+  failures and carries the real outcome in a JSON envelope. Every code below was either
+  observed in a live unauthenticated probe or is named in the provider's published
+  documentation; none are inferred.
+envelope:
+  content_type: application/json
+  http_status_on_error: 200
+  shape:
+    message: '"error" on failure; the transport status stays 200'
+    data.error_code: integer error code
+    data.description: human-readable message, Chinese
+    data.desc_url: optional help URL returned by the platform
+    data.captcha: optional captcha challenge payload
+  example_observed: '{"data":{"captcha":"","desc_url":"","description":"缺少参数","error_code":10005},"message":"error"}'
+  agent_warning: >-
+    Because failures return HTTP 200, a client that branches on transport status alone will
+    treat every error as a success. Agents and SDKs must parse message and data.error_code.
+problems:
+- code: 10002
+  description: 参数错误
+  meaning: Parameter error — a parameter was supplied but is invalid.
+  http_status: 200
+  observed_on:
+  - https://open.snssdk.com/oauth/access_token/
+  - https://open.snssdk.com/oauth/client_token/
+  method: probed
+- code: 10005
+  description: 缺少参数
+  meaning: Missing parameter — a required parameter was absent from the request.
+  http_status: 200
+  observed_on:
+  - https://open.snssdk.com/oauth/refresh_token/
+  - https://open.snssdk.com/oauth/authorize/
+  - https://open.snssdk.com/oauth/renew_refresh_token/
+  - https://open.snssdk.com/oauth/userinfo/
+  method: probed
+- code: 16
+  description: 该应用无权限
+  meaning: >-
+    The application lacks permission for this interface. Also returned by the /oauth/*
+    catch-all for unrecognised paths, so it is not by itself proof that an endpoint exists.
+  http_status: 200
+  desc_url: https://zjsms.com/JeBd2LH/
+  observed_on:
+  - https://open.snssdk.com/oauth/nonexistent_zzz9931/ (control path)
+  method: probed
+- code: 2100005
+  description: Parameter error
+  meaning: >-
+    Parameter error on the Douyin Open Platform userinfo interface, the reference the
+    Toutiao/Xigua section inherits its request and response shape from.
+  http_status: 200
+  source: https://open.douyin.com/platform/resource/docs/openapi/account-management/get-account-open-info
+  method: searched
+transport:
+  real_http_404_exists: true
+  note: >-
+    Unmatched paths outside /oauth/ return a genuine HTTP 404 from the edge (nginx/TLB),
+    so the host does distinguish routing failures from application failures. Only the
+    application layer collapses errors onto 200.
+gaps:
+- No public error-code reference page is published for the Toutiao open API.
+- No application/problem+json (RFC 9457) support.
+- The platform's own troubleshooting tool sits behind desc_url redirects, not a stable doc.

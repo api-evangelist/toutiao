@@ -1,0 +1,122 @@
+generated: '2026-08-05'
+method: probed
+source: live probes 2026-08-05
+note: >-
+  Probe record for the /.well-known/ and contract-discovery surface across every Toutiao,
+  snssdk, Douyin Open Platform and ByteDance mini-app host. NOTHING WAS FOUND. This file is
+  the evidence for that, not a catalog — no WellKnown, SecurityTxt, APICatalog or AgentCard
+  pointer is wired into apis.yml, because none of these documents exist.
+documents: []
+soft_404_warning: >-
+  open.douyin.com and microapp.bytedance.com return HTTP 200 with an HTML single-page-app
+  shell for EVERY path, including /.well-known/agent-card.json and /openapi.json. Each was
+  diffed against a nonexistent control path and returned a byte-identical HTML body, which
+  confirms a catch-all, not a document. These are recorded as soft-404 misses, not hits.
+hosts_probed:
+- host: open.snssdk.com
+  role: API host
+  behaviour: genuine HTTP 404 for unknown paths
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /openapi.yaml, status: 404}
+  - {path: /swagger.json, status: 404}
+  - {path: /v1/openapi.json, status: 404}
+  - {path: /api-docs, status: 404}
+  - {path: /redoc, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: www.toutiao.com
+  role: website
+  behaviour: genuine HTTP 404 for unknown paths (546-byte error page)
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /swagger.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /robots.txt, status: 200, note: present but carries no discovery pointer}
+- host: open.toutiao.com
+  role: developer portal (头条号开放平台)
+  behaviour: genuine HTTP 404 for unknown paths
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /doc, status: 404}
+- host: developer.toutiao.com
+  role: legacy developer host
+  behaviour: HTTP 301 on every path to https://microapp.bytedance.com/
+  results:
+  - {path: /openapi.json, status: 301}
+  - {path: /.well-known/agent-card.json, status: 301}
+  - {path: /llms.txt, status: 301}
+- host: mp.toutiao.com
+  role: creator platform
+  behaviour: HTTP 502 on unauthenticated subpaths
+  results:
+  - {path: /.well-known/agent-card.json, status: 502}
+  - {path: /openapi.json, status: 502}
+  - {path: /llms.txt, status: 502}
+- host: open.douyin.com
+  role: docs host for Toutiao/Xigua developer documentation
+  behaviour: SPA catch-all — HTTP 200 HTML for every path
+  soft_404: true
+  control:
+    path: /.well-known/zzz-control-does-not-exist-9931.json
+    status: 200
+    content_type: text/html
+    note: body identical to the claimed hits below; all rejected
+  results:
+  - {path: /.well-known/agent-card.json, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /.well-known/agent.json, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /.well-known/security.txt, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /.well-known/openid-configuration, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /.well-known/oauth-authorization-server, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /.well-known/api-catalog, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /openapi.json, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /swagger.json, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /llms.txt, status: 200, verdict: soft-404 HTML, accepted: false}
+- host: microapp.bytedance.com
+  role: ByteDance mini-app developer platform (target of developer.toutiao.com)
+  behaviour: SPA catch-all — HTTP 200 HTML for every path
+  soft_404: true
+  control:
+    path: /.well-known/zzz-control-9931.json
+    status: 200
+    content_type: text/html
+    note: body identical to the claimed hits; all rejected
+  results:
+  - {path: /.well-known/agent-card.json, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /.well-known/agent.json, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /openapi.json, status: 200, verdict: soft-404 HTML, accepted: false}
+  - {path: /llms.txt, status: 200, verdict: soft-404 HTML, accepted: false}
+- host: www.bytedance.com
+  role: parent corporate site
+  behaviour: SPA catch-all — HTTP 200 HTML for every path
+  soft_404: true
+  results:
+  - {path: /.well-known/security.txt, status: 200, verdict: soft-404 HTML (53KB corporate SPA, control identical), accepted: false}
+graphql:
+  probed: false
+  reason: No GraphQL surface is documented or advertised on any Toutiao host.
+mcp:
+  official_server: null
+  reason: >-
+    No official Toutiao or ByteDance MCP server was found. A third-party community server
+    (chemany/toutiao_mcp_server) exists on GitHub but is not first-party and is not recorded
+    as a provider surface.
+summary:
+  documents_found: 0
+  hosts_probed: 8
+  paths_probed: 60
+  soft_404_hosts: 3

@@ -1,0 +1,97 @@
+generated: '2026-08-05'
+method: searched
+source: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+docs: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+note: >-
+  Derived from the provider's published documentation and confirmed by live probes of the
+  API host. Toutiao publishes no OpenAPI, so no securityScheme block exists to derive from
+  mechanically; every field below is either documented by ByteDance on the Douyin Open
+  Platform (the canonical home of the Toutiao/Xigua developer documentation) or observed
+  in a live unauthenticated request to open.snssdk.com.
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  api_key_in: []
+  token_transport: >-
+    access-token request header (per the Douyin Open Platform userinfo reference, the
+    same convention the Toutiao/Xigua section inherits)
+schemes:
+- name: ToutiaoOAuth2
+  type: oauth2
+  host: https://open.snssdk.com
+  sources:
+  - https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://open.snssdk.com/oauth/authorize/
+    tokenUrl: https://open.snssdk.com/oauth/access_token/
+    refreshUrl: https://open.snssdk.com/oauth/refresh_token/
+    renewRefreshUrl: https://open.snssdk.com/oauth/renew_refresh_token/
+  credentials:
+    client_id_param: client_key
+    client_secret_param: client_secret
+    note: >-
+      Application credentials (client key / secret, referred to as App ID and App Secret in
+      the Chinese console) are issued only after an application is created and approved in
+      the open-platform console. Approval is documented as a 1-3 business day review.
+  token_lifetimes:
+    access_token: 15 days
+    refresh_token: 30 days
+    source: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+  returned_identity:
+  - open_id
+  - nickname
+  - avatar
+  sensitive_data:
+    permission: mobile_alert
+    field: encrypt_mobile
+    decryption: >-
+      AES; the key is the application clientSecret and the initialization vector is the
+      first 16 bytes of clientSecret, per the published Toutiao/Xigua OAuth documentation.
+    caution: >-
+      Documented by the provider as an approved-permission-only capability; API Evangelist
+      records the published scheme only and holds no credentials.
+endpoints_observed:
+  note: >-
+    Live unauthenticated probes on 2026-08-05. A control path (/oauth/nonexistent_zzz9931/)
+    was probed to confirm these are distinct handlers and not a catch-all: the control
+    returns error_code 16, while each endpoint below returns a different parameter-validation
+    error, which is the differential that confirms the endpoint really exists.
+  control:
+    url: https://open.snssdk.com/oauth/nonexistent_zzz9931/
+    http_status: 200
+    error_code: 16
+  endpoints:
+  - path: /oauth/authorize/
+    http_status: 200
+    error_code: 10005
+    error_description: 缺少参数 (missing parameter)
+  - path: /oauth/access_token/
+    http_status: 200
+    error_code: 10002
+    error_description: 参数错误 (parameter error)
+  - path: /oauth/refresh_token/
+    http_status: 200
+    error_code: 10005
+    error_description: 缺少参数 (missing parameter)
+  - path: /oauth/renew_refresh_token/
+    http_status: 200
+    error_code: 10005
+    error_description: 缺少参数 (missing parameter)
+  - path: /oauth/userinfo/
+    http_status: 200
+    error_code: 10005
+    error_description: 缺少参数 (missing parameter)
+  - path: /oauth/client_token/
+    http_status: 200
+    error_code: 10002
+    error_description: 参数错误 (parameter error)
+gaps:
+- No OpenAPI or other machine-readable description of the OAuth surface is published.
+- >-
+    No /.well-known/openid-configuration or /.well-known/oauth-authorization-server is
+    served on open.snssdk.com (both probed, both 404), so the authorization server is not
+    discoverable by RFC 8414 / OIDC Discovery.
+- The full scope list is visible only inside the authenticated open-platform console.

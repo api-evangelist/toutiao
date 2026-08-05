@@ -1,0 +1,69 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
+  plus live probes of https://open.snssdk.com (2026-08-05)
+note: >-
+  Cross-cutting request/response semantics for the Toutiao open API. Recorded only where
+  the provider documents the behaviour or a live probe demonstrated it. Fields the provider
+  does not publish are recorded as null with a reason rather than guessed.
+authentication:
+  style: oauth2-authorization-code
+  host: https://open.snssdk.com
+  token_transport: access-token request header
+  detail: authentication/toutiao-authentication.yml
+idempotency:
+  supported: null
+  reason: >-
+    No idempotency key, request-deduplication header, or retry-safety contract is documented
+    anywhere in the published Toutiao/Xigua developer documentation, and no OpenAPI exists
+    in which an Idempotency-Key parameter could be observed. Recorded as unknown rather
+    than false, and deliberately NOT wired as a scoring pointer.
+pagination:
+  style: null
+  reason: >-
+    The publicly documented surface (OAuth token exchange + single-user profile lookup)
+    returns no collections, so no pagination convention is exposed. The console-gated
+    content and data interfaces are not publicly documented.
+error_envelope:
+  style: custom-200-envelope
+  summary: >-
+    Application errors are returned with HTTP 200 and a {"message":"error","data":{...}}
+    body carrying data.error_code and data.description.
+  detail: errors/toutiao-problem-types.yml
+request_tracing:
+  request_id_header: null
+  reason: No request-id or correlation header is documented, and none was returned on probe.
+rate_limiting:
+  documented: false
+  headers_observed: []
+  reason: >-
+    No rate-limit headers were returned on unauthenticated probes and no quota policy is
+    published for the Toutiao open API. Quotas are understood to be applied per approved
+    application inside the console, which is not publicly readable.
+versioning:
+  scheme: none-observed
+  detail: >-
+    Endpoint paths carry no version segment (/oauth/access_token/, not /v1/oauth/...).
+    Versioning, if any, is not documented. See lifecycle/toutiao-lifecycle.yml.
+content_negotiation:
+  request_content_type: application/json
+  response_content_type: application/json
+  encoding: UTF-8
+localization:
+  documentation_language: zh-CN
+  error_message_language: zh-CN
+  note: >-
+    All developer documentation and all error descriptions are Chinese-only. There is no
+    English-language developer surface for the Toutiao open API.
+transport_security:
+  https: true
+  tls_version: TLSv1.3
+  hsts: false
+  detail: security/toutiao-domain-security.yml
+cross_links:
+  authentication: authentication/toutiao-authentication.yml
+  scopes: scopes/toutiao-scopes.yml
+  errors: errors/toutiao-problem-types.yml
+  lifecycle: lifecycle/toutiao-lifecycle.yml
+  conformance: conformance/toutiao-conformance.yml
