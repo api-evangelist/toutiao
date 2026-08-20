@@ -29,6 +29,17 @@ tags:
 - Publishing
 - ByteDance
 - China
+- Authentication
+tags_raw:
+- Company
+- News
+- Content
+- Media
+- Social
+- Recommendation
+- Publishing
+- ByteDance
+- China
 - OAuth
 apis:
 - name: Toutiao Open API (OAuth + User Profile)
@@ -43,6 +54,9 @@ apis:
   humanURL: https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/
   baseURL: https://open.snssdk.com
   tags:
+  - Authentication
+  - Identity
+  tags_raw:
   - OAuth
   - Authentication
   - Identity
