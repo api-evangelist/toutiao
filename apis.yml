@@ -12,6 +12,17 @@ description: 'Toutiao (今日头条) is ByteDance''s AI-driven content recommend
   to OceanEngine (巨量引擎). Toutiao publishes no OpenAPI, AsyncAPI, llms.txt or A2A
   agent card; its developer program is registration- and approval-gated and its documentation
   is client-side rendered in Chinese.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://sf3-cdn-tos.douyinstatic.com/obj/eden-cn/uhbfnupkbps/toutiao_favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/toutiao/refs/heads/main/apis.yml
 x-type: company
