@@ -64,5 +64,95 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Toutiao is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/toutiao_stock/
+Toutiao (今日头条) is ByteDance's AI-driven content recommendation platform, launched in 2012, aggregating news, articles, short video and micro-posts into a personalized feed for hundreds of millions of readers in China. Creators publish through 头条号 (Toutiao Hao) accounts on mp.toutiao.com, and third-party developers integrate through the ByteDance open-platform stack: Toutiao account OAuth 2.0 and user-profile APIs served from open.snssdk.com and documented on the Douyin Open Platform under the toutiao-or-xigua section, a content-sync and video publishing surface available to approved applications, mini-programs via the ByteDance mini-app developer platform, and advertising APIs that have since migrated from ad.toutiao.com to OceanEngine (巨量引擎). Toutiao publishes no OpenAPI, AsyncAPI, llms.txt or A2A agent card; its developer program is registration- and approval-gated and its documentation is client-side rendered in Chinese.
+
+**Areas:** Company · News · Content · Media · Social · Recommendations · Publishing · ByteDance · China · Authentication
+
+## Toutiao on APIs.io
+
+Everything profiled for Toutiao is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/toutiao/](https://apis.io/providers/toutiao/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Toutiao Open API (OAuth + User Profile)](https://apis.io/apis/toutiao/toutiao-open-api-oauth-user-profile/) — Toutiao account OAuth 2.0 and user-profile API, served from the open.snssdk.com host and documented on the Douyin Open Platform under the toutiao-or-xigua…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Toutiao Authentication](https://apis.io/security/toutiao/toutiao-authentication/)
+- [Toutiao Domain Security](https://apis.io/security/toutiao/toutiao-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Toutiao Scopes](https://apis.io/scopes/toutiao/toutiao-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.toutiao.com/)
+- [Documentation](https://open.douyin.com/platform/resource/docs/develop/permission/toutiao-or-xigua/OAuth2.0/)
+- [API reference](https://open.douyin.com/platform/resource/docs/ability/content-management/toutiao-publish-solution/)
+- [Sign up](https://mp.toutiao.com/auth/page/login)
+- [Terms of service](https://www.toutiao.com/user_agreement/)
+- [Privacy policy](https://www.toutiao.com/privacy_protection/)
+
+## API Evangelist rating
+
+**Kin Score 24.5** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 0.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 38.1 |
+| Access clarity | 34.2 |
+
+**Agent readiness 5.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/toutiao/](https://apis.io/providers/toutiao/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Toutiao: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/toutiao/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
